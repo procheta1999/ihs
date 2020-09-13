@@ -11,7 +11,7 @@ export default function ContactUs() {
 
     emailjs.sendForm('ggo', 'template_qy5y9ds', e.target, 'user_WutoPfimdC8JAiJgCfrlg')
       .then((result) => {
-          console.log(result.text);
+          console.log('Our team will reach shortly to you', result.status, result.text);
       }, (error) => {
           console.log(error.text);
       });
@@ -42,6 +42,7 @@ export default function ContactUs() {
             shrink: true,
             fontSize:10,
           }}
+          required
         /><br></br><br></br>
         <TextField
         fullWidth
@@ -53,6 +54,7 @@ export default function ContactUs() {
           InputLabelProps={{
             shrink: true,
           }}
+          required
         /><br></br><br></br>
         <TextField
         fullWidth
@@ -63,7 +65,8 @@ export default function ContactUs() {
           inputProps={{style: {fontSize: 20,lineHeight:1}}}
           InputLabelProps={{
             shrink: true,
-          }}/><br></br><br></br><br></br>
+          }}
+          required/><br></br><br></br><br></br>
         <TextField
         fullWidth
         multiline
@@ -74,7 +77,7 @@ export default function ContactUs() {
           inputProps={{style: {fontSize: 20,lineHeight:1}}}
           InputLabelProps={{
             shrink: true,
-          }}/><br></br><br></br>
+          }} required/><br></br><br></br>
       <input type="submit" value="Send" />
     </form><br></br><div id="help"><Typography variant="h5">Have feedback for our team?</Typography><div>_____________________________</div><br></br><Link href="./index"><a><Typography variant="h6">Go to our Contact page.</Typography></a></Link></div></div>
       <style jsx>{`

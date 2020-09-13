@@ -12,15 +12,21 @@ import Link from 'next/link';
 
 
 export default function ContactUs() {
-
+ (function() {
+    var exLog = console.log;
+    console.log = function(msg) {
+        exLog.apply(this, arguments);
+        alert(msg);
+    }
+})()
   function sendEmail(e) {
     e.preventDefault();
 
     emailjs.sendForm('gmail', 'template_y4xuhot', e.target, 'user_WutoPfimdC8JAiJgCfrlg')
       .then((result) => {
-          console.log(result.text);
+        console.log('Thank you for your feedback!', result.status, result.text);
       }, (error) => {
-          console.log(error.text);
+        console.log('FAILED...', error);
       });
   }
 
@@ -41,17 +47,18 @@ export default function ContactUs() {
         <center>_____</center>
         <center style={{color:"#848484",fontSize:"15px"}}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris maximus at risus at volutpat. Ut non ipsum et libero sagittis egestas non a mi. Nunc a fringilla diam. </center>
         <br></br>
-        <TextField id="standard-search"  label="Name" type="text" fullWidth inputProps={{style: {fontSize: 15,lineHeight:1}}} name="name"/>
+        <TextField id="standard-search"  label="Name" type="text" fullWidth inputProps={{style: {fontSize: 15,lineHeight:1}}} name="name" required/>
         <br></br>
         <br></br>
-        <TextField type="email" id="standard-search" label="Email" fullWidth inputProps={{style: {fontSize: 15,lineHeight:1}}} name="email" />
+        <TextField type="email" id="standard-search" label="Email" fullWidth inputProps={{style: {fontSize: 15,lineHeight:1}}} name="email" required/>
         <br></br>
         <br></br>
-        <TextField type="text" id="standard-search" name="message" fullWidth inputProps={{style: {fontSize: 15,lineHeight:1}}} label="Message" multiline /><br></br>
+        <TextField type="text" id="standard-search" name="message" fullWidth inputProps={{style: {fontSize: 15,lineHeight:1}}} label="Message" multiline required/><br></br>
         <br></br>
-      <input type="submit" value="Send" />
+      <input type="submit" value="Send"/>
       
-    </form></Card><br></br></Grid><Grid item xs={12} sm={6}><center ><img id="i" src="https://t4.ftcdn.net/jpg/01/35/09/87/240_F_135098768_oqxM7v0BPVbivEUrXhHzkAbHji0qB9fp.jpg"></img></center></Grid></Grid>
+    </form></Card><br></br></Grid><Grid item xs={12} sm={6}><center ><div id="i"><Card style={{flex:"1",padding:"3rem 3rem 3rem 3rem",backgroundImage:`url(${"https://t4.ftcdn.net/jpg/03/56/08/21/240_F_356082102_iPkxJ1QoiJ7iPZEUbqBYWVVSlazfK3vt.jpg"})`,backgroundRepeat:"none",boxShadow:" 10px 10px 10px 10px #BDBDBD"}}><center><Typography variant="h4">Contact Information</Typography></center><br></br>
+    <Typography variant="h5">Inovocare Healthsoft Solutions</Typography><br></br><Typography variant="h6">Contact: 128932794</Typography><br></br><Typography variant="h6">Email:someone@example.com</Typography><br></br><Typography variant="h6">Address: 543,Miller Lane Kolkata-700091</Typography></Card></div></center></Grid></Grid>
  <br></br>     <div id="help"><Typography variant="h4">Need help from our team?</Typography><div>_____________________________</div><br></br><Link href="./support"><a><Typography variant="h5">Go to our support page.</Typography></a></Link></div></div></ div>
  <style jsx>{`
       #help{
