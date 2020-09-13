@@ -42,13 +42,13 @@ export default class MyForm extends React.Component {
         <center>_____</center>
         <center style={{color:"#848484",fontSize:"15px"}}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris maximus at risus at volutpat. Ut non ipsum et libero sagittis egestas non a mi. Nunc a fringilla diam. </center>
         <br></br>
-        <TextField id="standard-search"  label="Full Name" type="text" style={{fontSize:"40px"}} name="name"/>
+        <TextField id="standard-search"  label="Full Name" type="text" fullWidth inputProps={{style: {fontSize: 15,lineHeight:1}}} name="name"/>
         <br></br>
         <br></br>
-        <TextField type="email" id="standard-search" label="Email" style={{fontSize:"40px"}} name="email" />
+        <TextField type="email" id="standard-search" label="Email" fullWidth inputProps={{style: {fontSize: 15,lineHeight:1}}} name="email" />
         <br></br>
         <br></br>
-        <TextField type="text" id="standard-search" name="message" style={{fontSize:"40px"}} label="Message" multiline /><br></br>
+        <TextField type="text" id="standard-search" name="message" fullWidth inputProps={{style: {fontSize: 15,lineHeight:1}}} label="Message" multiline /><br></br>
         <br></br>
         {status === "SUCCESS" ? <p>Thank you for your valuable feedback.</p> : <button variant="primary">Submit</button>}
         {status === "ERROR" && <p>Ooops! There was an error.</p>}
