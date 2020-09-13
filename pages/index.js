@@ -1,4 +1,5 @@
-import React from "react";
+import React from 'react';
+import emailjs from 'emailjs-com';
 import ButtonAppBar from "./tab";
 import Head from 'next/head'
 import Card from '@material-ui/core/Card';
@@ -8,18 +9,22 @@ import { Input, TextField } from "@material-ui/core";
 import Grid from '@material-ui/core/Grid';
 import Link from 'next/link';
 
-export default class MyForm extends React.Component {
-  constructor(props) {
-    super(props);
-    this.submitForm = this.submitForm.bind(this);
-    this.state = {
-      status: ""
-    };
+
+
+export default function ContactUs() {
+
+  function sendEmail(e) {
+    e.preventDefault();
+
+    emailjs.sendForm('gmail', 'template_y4xuhot', e.target, 'user_WutoPfimdC8JAiJgCfrlg')
+      .then((result) => {
+          console.log(result.text);
+      }, (error) => {
+          console.log(error.text);
+      });
   }
 
-  render() {
-    const { status } = this.state;
-    return (<>
+  return (<>
     <Head><title>IHS</title>
     <meta http-equiv="X-UA-Compatible" content="ie=edge"></meta>
       <script type="text/javascript" async="" src="https://www.google-analytics.com/analytics.js"></script>
@@ -31,18 +36,12 @@ export default class MyForm extends React.Component {
       <ButtonAppBar/>
       <br></br>< div id="bi">
       <div id="container"><Grid container spacing={2}><Grid item xs={12} sm={6}><Card style={{flex:"1",padding:"3rem 3rem 3rem 3rem",backgroundImage:`url(${"https://t4.ftcdn.net/jpg/03/56/08/21/240_F_356082102_iPkxJ1QoiJ7iPZEUbqBYWVVSlazfK3vt.jpg"})`,backgroundRepeat:"none",boxShadow:" 10px 10px 10px 10px #BDBDBD"}}>
-      
-      
-      <form
-        onSubmit={this.submitForm}
-        action="https://formspree.io/myybgyjk"
-        method="POST"
-      >
-        <center><Typography variant="h4">Contact Us!</Typography></center>
+    <form className="contact-form" onSubmit={sendEmail}>
+    <center><Typography variant="h4">Contact Us!</Typography></center>
         <center>_____</center>
         <center style={{color:"#848484",fontSize:"15px"}}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris maximus at risus at volutpat. Ut non ipsum et libero sagittis egestas non a mi. Nunc a fringilla diam. </center>
         <br></br>
-        <TextField id="standard-search"  label="Full Name" type="text" fullWidth inputProps={{style: {fontSize: 15,lineHeight:1}}} name="name"/>
+        <TextField id="standard-search"  label="Name" type="text" fullWidth inputProps={{style: {fontSize: 15,lineHeight:1}}} name="name"/>
         <br></br>
         <br></br>
         <TextField type="email" id="standard-search" label="Email" fullWidth inputProps={{style: {fontSize: 15,lineHeight:1}}} name="email" />
@@ -50,12 +49,11 @@ export default class MyForm extends React.Component {
         <br></br>
         <TextField type="text" id="standard-search" name="message" fullWidth inputProps={{style: {fontSize: 15,lineHeight:1}}} label="Message" multiline /><br></br>
         <br></br>
-        {status === "SUCCESS" ? <p>Thank you for your valuable feedback.</p> : <button variant="primary">Submit</button>}
-        {status === "ERROR" && <p>Ooops! There was an error.</p>}
-      </form></Card><br></br></Grid><Grid item xs={12} sm={6}><center ><img id="i" src="https://t4.ftcdn.net/jpg/01/35/09/87/240_F_135098768_oqxM7v0BPVbivEUrXhHzkAbHji0qB9fp.jpg"></img></center></Grid></Grid>
- <br></br>     <div id="help"><Typography variant="h4">Need help from our team?</Typography><div>_____________________________</div><br></br><Link href="./support"><a><Typography variant="h5">Go to our support page.</Typography></a></Link></div></div></ div>
+      <input type="submit" value="Send" />
       
-      <style jsx>{`
+    </form></Card><br></br></Grid><Grid item xs={12} sm={6}><center ><img id="i" src="https://t4.ftcdn.net/jpg/01/35/09/87/240_F_135098768_oqxM7v0BPVbivEUrXhHzkAbHji0qB9fp.jpg"></img></center></Grid></Grid>
+ <br></br>     <div id="help"><Typography variant="h4">Need help from our team?</Typography><div>_____________________________</div><br></br><Link href="./support"><a><Typography variant="h5">Go to our support page.</Typography></a></Link></div></div></ div>
+ <style jsx>{`
       #help{
 padding:0.5rem 0.5rem 0.5rem 0.5rem;
       }
@@ -98,23 +96,3 @@ width:450px;
     </>
     );
   }
-
-  submitForm(ev) {
-    ev.preventDefault();
-    const form = ev.target;
-    const data = new FormData(form);
-    const xhr = new XMLHttpRequest();
-    xhr.open(form.method, form.action);
-    xhr.setRequestHeader("Accept", "application/json");
-    xhr.onreadystatechange = () => {
-      if (xhr.readyState !== XMLHttpRequest.DONE) return;
-      if (xhr.status === 200) {
-        form.reset();
-        this.setState({ status: "SUCCESS" });
-      } else {
-        this.setState({ status: "ERROR" });
-      }
-    };
-    xhr.send(data);
-  }
-}

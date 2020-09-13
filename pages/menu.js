@@ -16,7 +16,8 @@ export default function MenuPopupState() {
           </Button>
           <Menu {...bindMenu(popupState)}>
             <MenuItem><a href="https://github.com/procheta1999/ihs.git" target="_blank" style={{color:"GrayText",textDecoration:"none"}}>View source code in Github</a></MenuItem>
-
+<MenuItem>Email: some@example.com</MenuItem>
+<MenuItem>Contact:998757345</MenuItem>
 
           </Menu>
         </React.Fragment>

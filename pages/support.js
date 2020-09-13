@@ -1,21 +1,24 @@
-import React from "react";
+import React from 'react';
+import emailjs from 'emailjs-com';
 import Head from 'next/head'
 import ButtonAppBar from "./tab";
 import Link from 'next/link';
 import { TextField, Typography } from "@material-ui/core";
-export default class MyForm extends React.Component {
-  constructor(props) {
-    super(props);
-    this.submitForm = this.submitForm.bind(this);
-    this.state = {
-      status: ""
-    };
+export default function ContactUs() {
+
+  function sendEmail(e) {
+    e.preventDefault();
+
+    emailjs.sendForm('ggo', 'template_qy5y9ds', e.target, 'user_WutoPfimdC8JAiJgCfrlg')
+      .then((result) => {
+          console.log(result.text);
+      }, (error) => {
+          console.log(error.text);
+      });
   }
 
-  render() {
-    const { status } = this.state;
-    return (<>
-    <Head><title>IHS</title>
+  return (<>
+  <Head><title>IHS</title>
     <meta http-equiv="X-UA-Compatible" content="ie=edge"></meta>
       <script type="text/javascript" async="" src="https://www.google-analytics.com/analytics.js"></script>
       <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet"></link>
@@ -27,13 +30,8 @@ export default class MyForm extends React.Component {
         <center>_____</center>
         <center style={{color:"#848484",fontSize:"15px"}}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris maximus at risus at volutpat. Ut non ipsum et libero sagittis egestas non a mi. Nunc a fringilla diam. </center>
 <br></br>
-      <div id="container"><form style={{backgroundImage:`url(${"https://t3.ftcdn.net/jpg/03/71/22/28/240_F_371222816_mZYLspVzzbXbCnTXiDmADLXd5MJKRJ94.jpg"})`,backgroundRepeat:"none"}}
-        onSubmit={this.submitForm}
-        action="https://formspree.io/xvovpgkk"
-        method="POST"
-      >
-          
-          <TextField 
+<div id="container">   <form className="contact-form" onSubmit={sendEmail} style={{backgroundImage:`url(${"https://t3.ftcdn.net/jpg/03/71/22/28/240_F_371222816_mZYLspVzzbXbCnTXiDmADLXd5MJKRJ94.jpg"})`,backgroundRepeat:"none"}}>
+<TextField 
           fullWidth
           id="standard-number"
           label="Full Name"
@@ -77,9 +75,8 @@ export default class MyForm extends React.Component {
           InputLabelProps={{
             shrink: true,
           }}/><br></br><br></br>
-        {status === "SUCCESS" ? <p style={{fontSize:"20px"}}>Thanks! Our team will shortly reach to you.</p> : <button>Submit</button>}
-        {status === "ERROR" && <p style={{fontSize:"20px"}}>Ooops! Try again.</p>}
-      </form><br></br><div id="help"><Typography variant="h5">Have feedback for our team?</Typography><div>_____________________________</div><br></br><Link href="./index"><a><Typography variant="h6">Go to our Contact page.</Typography></a></Link></div></div>
+      <input type="submit" value="Send" />
+    </form><br></br><div id="help"><Typography variant="h5">Have feedback for our team?</Typography><div>_____________________________</div><br></br><Link href="./index"><a><Typography variant="h6">Go to our Contact page.</Typography></a></Link></div></div>
       <style jsx>{`
       #help{
 padding:0.5rem 0.5rem 0.5rem 0.5rem;
@@ -121,23 +118,3 @@ width:450px;
        }
       `}</style></> );
   }
-
-  submitForm(ev) {
-    ev.preventDefault();
-    const form = ev.target;
-    const data = new FormData(form);
-    const xhr = new XMLHttpRequest();
-    xhr.open(form.method, form.action);
-    xhr.setRequestHeader("Accept", "application/json");
-    xhr.onreadystatechange = () => {
-      if (xhr.readyState !== XMLHttpRequest.DONE) return;
-      if (xhr.status === 200) {
-        form.reset();
-        this.setState({ status: "SUCCESS" });
-      } else {
-        this.setState({ status: "ERROR" });
-      }
-    };
-    xhr.send(data);
-  }
-}
