@@ -11,9 +11,10 @@ export default function ContactUs() {
 
     emailjs.sendForm('ggo', 'template_qy5y9ds', e.target, 'user_WutoPfimdC8JAiJgCfrlg')
       .then((result) => {
-          console.log('Our team will reach shortly to you', result.status, result.text);
+          console.log(result.text);
+          alert("our team will shortly reach to you")
       }, (error) => {
-          console.log(error.text);
+          console.log(result.error);
       });
   }
 
